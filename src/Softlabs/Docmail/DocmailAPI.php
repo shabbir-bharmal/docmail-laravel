@@ -47,6 +47,12 @@ class DocmailAPI {
 
     // Single API call methods
 
+    /**
+     * CreateMailing API call
+     *
+     * @param  array   $options 
+     * @return string  Mailing GUID
+     */
     public static function CreateMailing($options = []) {
 
         $result = self::apiCall("CreateMailing", $options);

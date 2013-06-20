@@ -4,13 +4,10 @@ use \Config as Config;
 use \Exception as Exception;
 use Softlabs\Docmail\DocmailAPI as DocmailAPI;
 
-// require_once("DocmailAPI.php");
-
 class Docmail {
 
     private $mailingGUID;
     private $templateGUID;
-
 
     // Complex methods (multiple API calls)
 
