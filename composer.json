@@ -1,0 +1,20 @@
+{
+    "name": "softlabs/docmail",
+    "description": "",
+    "authors": [
+        {
+            "name": "Softlabs",
+            "email": "istvan.kadar@softlabs.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Softlabs\\Docmail": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
