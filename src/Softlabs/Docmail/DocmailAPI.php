@@ -8,6 +8,8 @@ require_once("Docmailing/Docmailing.php");
 
 class DocmailAPI {
 
+    private static $validateOnly = false;
+
     /**
      * Default option values
      *
@@ -226,6 +228,19 @@ class DocmailAPI {
     // Low level methods
 
     /**
+     *
+     * @param  array  $options
+     * @param  array  $rules
+     * @return array
+     */
+    public static function validateCall($funcs, $options) {
+        self::$validateOnly = true;
+        foreach ($funcs as $func) {
+            self::$func($options);
+        }
+        self::$validateOnly = false;
+    }
+
     /**
      * Validates options.
      *
