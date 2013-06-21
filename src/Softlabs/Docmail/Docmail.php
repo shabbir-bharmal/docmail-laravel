@@ -17,10 +17,12 @@ class Docmail {
         $this->mailingGUID = DocmailAPI::CreateMailing();
         $options["MailingGUID"] = $this->mailingGUID;
 
-        DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile'], $options);
+        DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile', 'ProcessMailing'], $options);
         $result = DocmailAPI::AddAddress($options);
 
         $this->templateGUID = DocmailAPI::AddTemplateFile($options);
+
+        $result = DocmailAPI::ProcessMailing($options);
 
     }
 
