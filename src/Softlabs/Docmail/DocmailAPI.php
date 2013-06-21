@@ -14,11 +14,14 @@ class DocmailAPI {
      * @var array
      */
     private static $defaults = [
-        "Username" => null,
-        "Password" => null,
-        "wsdl" => null,
-        "timeout" => 240,
-        "DocumentType" => "A4Letter"
+        "timeout"           => 240,
+        "DocumentType"      => "A4Letter",
+        "ProductType"       => "A4Letter",
+        "IsMono"            => true,
+        "IsDuplex"          => false,
+        "DeliveryType"      => "Second",
+        "AddressNameFormat" => "Full Name",
+        "TestMode"          => true,
     ];
 
     /**
@@ -27,10 +30,13 @@ class DocmailAPI {
      * @var array
      */
     private static $validationRules = array(
-        'Username'     => 'required|max:100',
-        'Password'     => 'required|max:100',
-        'wsdl'         => 'required|max:100',
-        'timeout'      => 'required|max:100',
+        'Username'            => 'required|max:100',
+        'Password'            => 'required|max:100',
+        'wsdl_test'           => 'required|max:100',
+        'wsdl_live'           => 'required|max:100',
+        'timeout'             => 'required|max:100',
+        "CustomerApplication" => "max:50",
+        "TestMode"            => "required",
     );
 
     /**
@@ -39,10 +45,13 @@ class DocmailAPI {
      * @var array
      */
     private static $validationMessages = array(
-        'Username' => 'Username is required',
-        'Password' => 'Password is required',
-        'wsdl'     => 'WSDL is required',
-        'timeout'  => 'Timeout is required',
+        'Username'            => 'Username is required',
+        'Password'            => 'Password is required',
+        'wsdl_test'           => 'Test WSDL is required',
+        'wsdl_live'           => 'Live WSDL is required',
+        'timeout'             => 'Timeout is required',
+        "CustomerApplication" => "CustomerApplication should contain less than 50 characters",
+        "TestMode"            => "TestMode is Required",
     );
 
     // Single API call methods
@@ -54,6 +63,25 @@ class DocmailAPI {
      * @return string  Mailing GUID
      */
     public static function CreateMailing($options = []) {
+
+        $messages = array(
+            'MailingName'       => 'MailingName is required',
+            'IsMono'            => 'IsMono is required',
+            'IsDuplex'          => 'IsDuplex is required',
+            'DeliveryType'      => 'DeliveryType is required',
+            'AddressNameFormat' => 'AddressNameFormat is required',
+            'ProductType'       => 'ProductType is required',
+
+        );
+
+        $rules = array(
+            'MailingName'       => 'required',
+            'IsMono'            => 'required',
+            'IsDuplex'          => 'required',
+            'DeliveryType'      => 'required',
+            'AddressNameFormat' => 'required',
+            'ProductType'       => 'required',
+        );
 
         $result = self::apiCall("CreateMailing", $options);
         $mailingGUID = self::GetFld($result["CreateMailingResult"],"MailingGUID");
@@ -96,12 +124,16 @@ class DocmailAPI {
 
         $messages = array(
             'MailingGUID' => 'MailingGUID is required',
+            'LastName' => 'LastName is required',
             'Address1' => 'Address1 is required',
+            'PostCode' => 'PostCode is required',
         );
 
         $rules = array(
             'MailingGUID'     => 'required',
-            'Address1'     => 'required',
+            'LastName' => 'required',
+            'Address1' => 'required',
+            'PostCode' => 'required',
         );
 
         $result = self::apiCall("AddAddress", $options, $rules, $messages);
@@ -122,6 +154,7 @@ class DocmailAPI {
             "FileData" => 'FileData is required',
             "DocumentType" => 'DocumentType is required',
             "FileName" => 'FileName is required',
+            "TemplateName" => 'TemplateName is required',
         );
 
         $rules = array(
@@ -129,6 +162,7 @@ class DocmailAPI {
             "FileData" => 'required',
             "DocumentType" => 'required',
             "FileName" => 'required',
+            "TemplateName" => 'required',
         );
 
         if (array_key_exists('FilePath', $options)) {
