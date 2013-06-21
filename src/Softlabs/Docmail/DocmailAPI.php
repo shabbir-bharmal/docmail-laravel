@@ -217,8 +217,6 @@ class DocmailAPI {
 
         $result = $client->call($func, $options);
 
-        // var_dump($result);
-
         self::CheckError($result[$func . "Result"]);   //parse & check error fields from result as described above
 
         return $result;
