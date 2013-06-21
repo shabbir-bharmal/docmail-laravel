@@ -247,6 +247,7 @@ class DocmailAPI {
     }
 
 
+    /**
      * Get options and try to add default values if required item is missing.
      *
      * @param  array  $options
@@ -255,10 +256,10 @@ class DocmailAPI {
      */
     private static function expandOptions($options, $rules) {
 
-        foreach ($rules as $key => $value) {
         // Add default validation rules to $rules parameter array
         $rules = $rules + self::$validationRules;
 
+        foreach ($rules as $key => $ruleString) {
 
             $$key = (array_key_exists($key, $options) ? $options[$key] : Config::get('Softlabs/docmail.' . $key));
 
@@ -267,10 +268,11 @@ class DocmailAPI {
             }
 
             if ($$key === null) {
-                throw new Exception("Missing parameter: " . $key, 1);
+                unset($options[$key]);
+            } else {
+                $options[$key] = $$key;
             }
 
-            $options[$key] = $$key;
         }
 
         return $options;
