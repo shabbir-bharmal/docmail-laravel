@@ -195,10 +195,6 @@ class DocmailAPI {
     public static function apiCall($func, $options, $rules = [], $messages = [])
     {
 
-        // Add default validation rules and messages to parameter arrays
-        $rules = $rules + self::$validationRules;
-        $messages = $messages + self::$validationMessages;
-
         // Merge default values into $options array
         $options = self::expandOptions($options, $rules);
 
@@ -239,6 +235,9 @@ class DocmailAPI {
     private static function expandOptions($options, $rules) {
 
         foreach ($rules as $key => $value) {
+        // Add default validation rules to $rules parameter array
+        $rules = $rules + self::$validationRules;
+
 
             $$key = (array_key_exists($key, $options) ? $options[$key] : Config::get('Softlabs/docmail.' . $key));
 
