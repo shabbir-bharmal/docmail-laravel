@@ -228,6 +228,7 @@ class DocmailAPI {
     // Low level methods
 
     /**
+     * Validates options against API functions.
      *
      * @param  array  $options
      * @param  array  $rules
