@@ -207,7 +207,7 @@ class DocmailAPI {
             return true;
         }
 
-        $client = new \nusoap_client($options['wsdl'], true);
+        $client = new \nusoap_client($options['TestMode'] ? $options['wsdl_test'] : $options['wsdl_live'], true);
 
         // Increase soap client timeout
         $client->timeout = $options['timeout'];
