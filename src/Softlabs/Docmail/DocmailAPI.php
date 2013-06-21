@@ -198,11 +198,11 @@ class DocmailAPI {
         // Merge default values into $options array
         $options = self::expandOptions($options, $rules);
 
-        // Validate options against rules
-        $validator = Validator::make($options, $rules, $messages);
-        if ($validator->fails()) {
-            $messages = $validator->messages();
-            throw new Exception("Validation error: " . print_r($messages->all(), true), 1);
+        // Validate options
+        self::validateOptions($options, $rules, $messages);
+
+        if (self::$validateOnly) {
+            return true;
         }
 
         $client = new \nusoap_client($options['wsdl'], true);
@@ -226,6 +226,27 @@ class DocmailAPI {
     // Low level methods
 
     /**
+    /**
+     * Validates options.
+     *
+     * @param  array  $options
+     * @param  array  $rules
+     * @return array
+     */
+    private static function validateOptions($options, $rules, $messages) {
+
+        // Add default validation messages to $messages parameter array
+        $messages = $messages + self::$validationMessages;
+
+        // Validate options against rules
+        $validator = Validator::make($options, $rules, $messages);
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            throw new Exception("Validation error: " . print_r($messages->all(), true), 1);
+        }
+    }
+
+
      * Get options and try to add default values if required item is missing.
      *
      * @param  array  $options
