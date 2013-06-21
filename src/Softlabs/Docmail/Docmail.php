@@ -13,9 +13,11 @@ class Docmail {
 
     public function sendToSingelAddress($options = []) {
 
+        DocmailAPI::validateCall(['CreateMailing'], $options);
         $this->mailingGUID = DocmailAPI::CreateMailing();
         $options["MailingGUID"] = $this->mailingGUID;
 
+        DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile'], $options);
         $result = DocmailAPI::AddAddress($options);
 
         $this->templateGUID = DocmailAPI::AddTemplateFile($options);
