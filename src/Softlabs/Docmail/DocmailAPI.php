@@ -186,6 +186,40 @@ class DocmailAPI {
     }
 
     /**
+     * ProcessMailing API call
+     *
+     * @param  array   $options 
+     * @return string  Mailing GUID
+     */
+    public static function ProcessMailing($options = []) {
+
+        $messages = array(
+            'MailingName'       => 'MailingName is required',
+            'IsMono'            => 'IsMono is required',
+            'IsDuplex'          => 'IsDuplex is required',
+            'DeliveryType'      => 'DeliveryType is required',
+            'AddressNameFormat' => 'AddressNameFormat is required',
+            'ProductType'       => 'ProductType is required',
+
+        );
+
+        $rules = array(
+            'MailingName'       => 'required',
+            'IsMono'            => 'required',
+            'IsDuplex'          => 'required',
+            'DeliveryType'      => 'required',
+            'AddressNameFormat' => 'required',
+            'ProductType'       => 'required',
+        );
+
+        $result = self::apiCall("ProcessMailing", $options);
+        // $mailingGUID = self::GetFld($result["ProcessMailingResult"],"MailingGUID");
+        return $result;
+
+    }
+
+
+    /**
      * Make a Docmal API call
      *
      * @param  string  $func
