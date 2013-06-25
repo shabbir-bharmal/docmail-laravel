@@ -213,8 +213,8 @@ class DocmailAPI {
         );
 
         $result = self::apiCall("ProcessMailing", $options);
-        // $mailingGUID = self::GetFld($result["ProcessMailingResult"],"MailingGUID");
-        return $result;
+        $success = self::GetFld($result["ProcessMailingResult"],"Success");
+        return $success == "True";
 
     }
 

@@ -11,18 +11,26 @@ class Docmail {
 
     // Complex methods (multiple API calls)
 
-    public function sendToSingelAddress($options = []) {
+    public static function sendToSingelAddress($options = []) {
 
-        DocmailAPI::validateCall(['CreateMailing'], $options);
-        $this->mailingGUID = DocmailAPI::CreateMailing();
-        $options["MailingGUID"] = $this->mailingGUID;
+        try {
 
-        DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile', 'ProcessMailing'], $options);
-        $result = DocmailAPI::AddAddress($options);
+            DocmailAPI::validateCall(['CreateMailing'], $options);
+            $mailingGUID = DocmailAPI::CreateMailing();
+            $options["MailingGUID"] = $mailingGUID;
 
-        $this->templateGUID = DocmailAPI::AddTemplateFile($options);
+            DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile', 'ProcessMailing'], $options);
+            $result = DocmailAPI::AddAddress($options);
 
-        $result = DocmailAPI::ProcessMailing($options);
+            $templateGUID = DocmailAPI::AddTemplateFile($options);
+
+            $result = DocmailAPI::ProcessMailing($options);
+
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        return $result;
 
     }
 

@@ -64,3 +64,18 @@ API call parameters can get its values from various sources (in ascending priori
             "timeout" => 240,
             "DocumentType" => "A4Letter"
         ];
+
+Exaple code how to send a docmail
+---------------------------------
+
+        $options = [
+            "LastName"     => "lastname",
+            "Address1"     => "address line 1",
+            "PostCode"     => "PostCode",
+            "FilePath"     => "../sample.pdf",
+            "TemplateName" => "Sample Template 01",
+            "Submit"       => true,
+        ];
+
+        $result = SoftlabsDocmail::sendToSingelAddress($options);
+
