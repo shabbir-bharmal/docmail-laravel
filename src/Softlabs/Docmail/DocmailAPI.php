@@ -21,9 +21,10 @@ class DocmailAPI {
         "ProductType"       => "A4Letter",
         "IsMono"            => true,
         "IsDuplex"          => false,
-        "DeliveryType"      => "Second",
+        "DeliveryType"      => "Standard",
         "AddressNameFormat" => "Full Name",
         "TestMode"          => true,
+        "DespatchASAP"      => true,
     ];
 
     /**
@@ -37,8 +38,14 @@ class DocmailAPI {
         'wsdl_test'           => 'required|max:100',
         'wsdl_live'           => 'required|max:100',
         'timeout'             => 'required|max:100',
-        "CustomerApplication" => "max:50",
         "TestMode"            => "required",
+        "CustomerApplication" => "",
+        "DespatchASAP"        => "",
+        "ProductType"         => "",
+        "IsMono"              => "",
+        "IsDuplex"            => "",
+        "IsDuplex"            => "",
+        "DeliveryType"        => "",
     );
 
     /**
@@ -52,8 +59,14 @@ class DocmailAPI {
         'wsdl_test'           => 'Test WSDL is required',
         'wsdl_live'           => 'Live WSDL is required',
         'timeout'             => 'Timeout is required',
-        "CustomerApplication" => "CustomerApplication should contain less than 50 characters",
         "TestMode"            => "TestMode is Required",
+        "CustomerApplication" => "",
+        "DespatchASAP"        => "",
+        "ProductType"         => "",
+        "IsMono"              => "",
+        "IsDuplex"            => "",
+        "IsDuplex"            => "",
+        "DeliveryType"        => "",
     );
 
     // Single API call methods
@@ -247,7 +260,6 @@ class DocmailAPI {
         $client->timeout = $options['timeout'];
         // Increase php script server timeout
         set_time_limit($options['timeout']);
-
 
         $result = $client->call($func, $options);
 
