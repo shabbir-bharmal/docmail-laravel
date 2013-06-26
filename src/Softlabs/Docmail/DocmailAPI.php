@@ -25,6 +25,7 @@ class DocmailAPI {
         "AddressNameFormat" => "Full Name",
         "TestMode"          => true,
         "DespatchASAP"      => true,
+        "CanBeginOnBack"    => false
     ];
 
     /**
@@ -44,8 +45,8 @@ class DocmailAPI {
         "ProductType"         => "",
         "IsMono"              => "",
         "IsDuplex"            => "",
-        "IsDuplex"            => "",
         "DeliveryType"        => "",
+        "CanBeginOnBack"      => ""
     );
 
     /**
@@ -65,8 +66,8 @@ class DocmailAPI {
         "ProductType"         => "",
         "IsMono"              => "",
         "IsDuplex"            => "",
-        "IsDuplex"            => "",
         "DeliveryType"        => "",
+        "CanBeginOnBack"      => ""
     );
 
     // Single API call methods
