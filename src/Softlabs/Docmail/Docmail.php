@@ -12,6 +12,7 @@ class Docmail {
     // Complex methods (multiple API calls)
 
     public static function sendToSingelAddress($options = []) {
+        $options = self::processParameterNames($options);
 
         try {
 
@@ -40,6 +41,34 @@ class Docmail {
 
     public function getTemplateGUID() {
         return $this->templateGUID;
+    }
+
+    private static function processParameterNames($parameters) {
+
+        // Names that should be changed to fit our standards
+        $namesToConvert = [
+            'PrintColour' => function($value){ return ["IsMono" => !$value]; },
+            'PrintDuplex' => function($value){ return ["IsDuplex" => $value]; },
+            'FirstClass'  => function($value){ return $value == true ? ["DeliveryType" => "First"] : []; },
+        ];
+
+        // Convert names to UpperCamelCase
+        $processedParameters = [];
+        foreach ($parameters as $key => $value) {
+            $newKey = mb_strtoupper(mb_substr($key, 0, 1)) . mb_substr($key, 1);
+            $processedParameters[$newKey] = $value;
+        }
+
+        // Convert names 
+        foreach ($namesToConvert as $key => $func) {
+            if (array_key_exists($key, $processedParameters) ) {
+                $value = $processedParameters[$key];
+                unset($processedParameters[$key]);
+                $processedParameters = array_merge($processedParameters, $func($value));
+            }
+        }
+
+        return $processedParameters;
     }
 
 }
