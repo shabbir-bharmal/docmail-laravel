@@ -11,7 +11,9 @@ class Docmail {
 
     // Complex methods (multiple API calls)
 
-    public static function sendToSingelAddress($options = []) {
+    public static function sendToSingelAddress($data = [], $options = []) {
+
+        $options = array_merge($data, $options);
         $options = self::processParameterNames($options);
 
         try {
@@ -21,6 +23,7 @@ class Docmail {
             $options["MailingGUID"] = $mailingGUID;
 
             DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile', 'ProcessMailing'], $options);
+
             $result = DocmailAPI::AddAddress($options);
 
             $templateGUID = DocmailAPI::AddTemplateFile($options);
