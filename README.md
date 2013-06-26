@@ -51,10 +51,19 @@ API call parameters can get its values from various sources (in ascending priori
 - docmail config file (/app/config/Softlabs/docmail.php)
 
         return array(
-            'Username' => 'nevergivein',
-            'Password' => 'nevergivein111',
-            'wsdl' => 'https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?WSDL',
+
+            'username'      => 'nevergivein',
+            'password'      => 'nevergivein111',
+            'wsdl'          => 'https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?WSDL',
+
+            'productType'   => "A4Letter",
+            'printColor'    => false,
+            'printDuplex'   => false,
+            'deliveryType'  => "Standard",
+            'despatchASAP'  => true,
+
         );
+
 - defalut values set in DocmailAPI class
 
         private static $defaults = [
