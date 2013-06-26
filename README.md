@@ -77,14 +77,19 @@ API call parameters can get its values from various sources (in ascending priori
 Exaple code how to send a docmail
 ---------------------------------
 
-        $options = [
-            "LastName"     => "lastname",
-            "Address1"     => "address line 1",
-            "PostCode"     => "PostCode",
-            "FilePath"     => "../sample.pdf",
-            "TemplateName" => "Sample Template 01",
-            "Submit"       => true,
+        $data = [
+            "lastName"     => "lastname2",
+            "address1"     => "address line 1",
+            "postCode"     => "PostCode",
+            "filePath"     => "../sample.pdf",
+            "templateName" => "Sample Template 01",
+            "submit"       => true,
         ];
 
-        $result = SoftlabsDocmail::sendToSingelAddress($options);
+        $options = [
+            "printColour"  => true,
+            "firstClass"   => true,
+        ];
+
+        $result = SoftlabsDocmail::sendToSingelAddress($data, $options);
 
