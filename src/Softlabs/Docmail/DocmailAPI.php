@@ -140,14 +140,14 @@ class DocmailAPI {
 
         $messages = array(
             'MailingGUID' => 'MailingGUID is required',
-            'LastName' => 'LastName is required',
+            'Surname' => 'Surname is required',
             'Address1' => 'Address1 is required',
             'PostCode' => 'PostCode is required',
         );
 
         $rules = array(
             'MailingGUID'     => 'required',
-            'LastName' => 'required',
+            'Surname' => 'required',
             'Address1' => 'required',
             'PostCode' => 'required',
         );
