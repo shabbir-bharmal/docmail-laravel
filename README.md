@@ -52,8 +52,8 @@ API call parameters can get its values from various sources (in ascending priori
 
         return array(
 
-            'username'      => 'nevergivein',
-            'password'      => 'nevergivein111',
+            'username'      => 'myusername',
+            'password'      => 'mypassword',
             'wsdl'          => 'https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?WSDL',
 
             'productType'   => "A4Letter",
