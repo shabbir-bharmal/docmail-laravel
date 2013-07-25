@@ -322,7 +322,7 @@ class DocmailAPI {
 
         foreach ($rules as $key => $ruleString) {
 
-            $$key = (array_key_exists($key, $options) ? $options[$key] : Config::get('sldocmail.' . $key));
+            $$key = (array_key_exists($key, $options) ? $options[$key] : Config::get('docmail.' . $key));
 
             if ($$key === null and array_key_exists($key, self::$defaults)) {
                 $$key = self::$defaults[$key];
