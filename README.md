@@ -100,7 +100,7 @@ API call parameters can get its values from various sources (in ascending priori
             "DocumentType" => "A4Letter"
         ];
 
-Exaple code how to send a docmail
+Exaple code how to send a mailing
 ---------------------------------
 
         $data = [
