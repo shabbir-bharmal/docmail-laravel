@@ -19,7 +19,7 @@ class Docmail {
         try {
 
             DocmailAPI::validateCall(['CreateMailing'], $options);
-            $mailingGUID = DocmailAPI::CreateMailing();
+            $mailingGUID = DocmailAPI::CreateMailing($options);
             $options["MailingGUID"] = $mailingGUID;
 
             DocmailAPI::validateCall(['AddAddress', 'AddTemplateFile', 'ProcessMailing'], $options);
@@ -53,6 +53,7 @@ class Docmail {
             'PrintColour' => function($value){ return ["IsMono" => !$value]; },
             'PrintDuplex' => function($value){ return ["IsDuplex" => $value]; },
             'FirstClass'  => function($value){ return $value == true ? ["DeliveryType" => "First"] : []; },
+            'PostCode'    => function($value){ return ["Address5" => $value]; },
         ];
 
         // Convert names to UpperCamelCase

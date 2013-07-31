@@ -140,16 +140,12 @@ class DocmailAPI {
 
         $messages = array(
             'MailingGUID' => 'MailingGUID is required',
-            'Surname' => 'Surname is required',
             'Address1' => 'Address1 is required',
-            'PostCode' => 'PostCode is required',
         );
 
         $rules = array(
             'MailingGUID'     => 'required',
-            'Surname' => 'required',
             'Address1' => 'required',
-            'PostCode' => 'required',
         );
 
         $result = self::apiCall("AddAddress", $options, $rules, $messages);
