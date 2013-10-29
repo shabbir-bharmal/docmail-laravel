@@ -48,7 +48,8 @@ class Docmail {
             $mailingGUID = DocmailAPI::CreateMailing($options);
             $options["MailingGUID"] = $mailingGUID;
 
-            $result = DocmailAPI::GetBalance($options);
+            DocmailAPI::validateCall(['GetBalance'], $options);
+            $result = (float)str_replace("Current balance: ", "", DocmailAPI::GetBalance($options));
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
