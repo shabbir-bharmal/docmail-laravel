@@ -38,6 +38,25 @@ class Docmail {
 
     }
 
+    public static function getBalance($data = [], $options = []) {
+
+        $options = array_merge($data, $options);
+        $options = self::processParameterNames($options);
+
+        try {
+            DocmailAPI::validateCall(['CreateMailing'], $options);
+            $mailingGUID = DocmailAPI::CreateMailing($options);
+            $options["MailingGUID"] = $mailingGUID;
+
+            $result = DocmailAPI::GetBalance($options);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
+        return $result;
+    }
+
+
     public function getMailingGUID() {
         return $this->mailingGUID;
     }
