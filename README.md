@@ -78,15 +78,18 @@ API call parameters can get its values from various sources (in ascending priori
 
         return array(
 
-            'username'      => 'myusername',
-            'password'      => 'mypassword',
-            'wsdl'          => 'https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?WSDL',
+            'username'       => 'myusername',
+            'password'       => 'mypassword',
+            'wsdl'           => 'https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?WSDL',
 
-            'productType'   => "A4Letter",
-            'printColor'    => false,
-            'printDuplex'   => false,
-            'deliveryType'  => "Standard",
-            'despatchASAP'  => true,
+            'productType'    => "A4Letter",
+            'printColor'     => false,
+            'printDuplex'    => false,
+            'deliveryType'   => "Standard",
+            'despatchASAP'   => true,
+
+            'MinimumBalance' => 200,
+            'AlertEmail'     => "istvan.kadar@softlabs.co.uk"
 
         );
 

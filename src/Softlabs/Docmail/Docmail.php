@@ -44,10 +44,6 @@ class Docmail {
         $options = self::processParameterNames($options);
 
         try {
-            DocmailAPI::validateCall(['CreateMailing'], $options);
-            $mailingGUID = DocmailAPI::CreateMailing($options);
-            $options["MailingGUID"] = $mailingGUID;
-
             DocmailAPI::validateCall(['GetBalance'], $options);
             $result = (float)str_replace("Current balance: ", "", DocmailAPI::GetBalance($options));
         } catch (\Exception $e) {
@@ -55,6 +51,23 @@ class Docmail {
         }
 
         return $result;
+    }
+
+    public static function checkBalance($data = [], $options = []) {
+
+        $balance = self::getBalance($data, $options);
+
+        $ret = true;
+        if ($balance < Config::get('docmail.MinimumBalance')) {
+            $ret = false;
+            \View::addNamespace('package', __DIR__.'/../../../views');
+            \Mail::send('package::alert-email', ["currentBalance" => $balance, "minimumBalance" => Config::get('docmail.MinimumBalance')], function($message)
+            {
+                $message->to(Config::get('docmail.AlertEmail'))->subject('Docmail balance alert');
+            });
+        }
+
+        return $ret;
     }
 
 
