@@ -131,6 +131,32 @@ class DocmailAPI {
     }
 
     /**
+     * GetBalance API call
+     *
+     * @param  array   $options 
+     * @return string  Status
+     */
+    public static function GetBalance($options) {
+
+        $messages = array(
+            'MailingGUID' => 'MailingGUID is required',
+        );
+
+        $rules = array(
+            'MailingGUID'     => 'required',
+        );
+
+        if (is_array($options) == false) {
+            $options = ["MailingGUID" => $options];
+        }
+
+        $result = self::apiCall("GetBalance", $options, $rules, $messages);
+        $status = self::GetFld($result["GetStatusResult"],"Status");
+        return $status;
+    }
+
+
+    /**
      * AddAddress API call
      *
      * @param  array   $options 
