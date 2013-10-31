@@ -57,15 +57,20 @@ class Docmail {
 
         $balance = self::getBalance($data, $options);
 
-        $ret = true;
+        $balanceIsOK = true;
         if ($balance < Config::get('docmail.MinimumBalance')) {
-            $ret = false;
+            $balanceIsOK = false;
             \View::addNamespace('package', __DIR__.'/../../../views');
             \Mail::send('package::alert-email', ["currentBalance" => $balance, "minimumBalance" => Config::get('docmail.MinimumBalance')], function($message)
             {
                 $message->to(Config::get('docmail.AlertEmail'))->subject('Docmail balance alert');
             });
         }
+
+        $ret = [
+            'balanceIsOK' => $balanceIsOK,
+            'balance'     => $balance,
+        ];
 
         return $ret;
     }
