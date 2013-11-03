@@ -1,1 +1,1 @@
-Current Docmail balance ({{'£' . number_format($currentBalance,2)}}) is less than minimum balance ({{'£' . number_format($minimumBalance,2)}}).
+Current Docmail balance ({{Slcurr::gbp($currentBalance)}}) is less than minimum balance ({{Slcurr::gbp($minimumBalance)}}).
