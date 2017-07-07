@@ -76,7 +76,7 @@ API call parameters can get its values from various sources (in ascending priori
 
 - docmail config file (/app/config/Softlabs/docmail.php)
 
-        return array(
+        return [
 
             'username'       => 'myusername',
             'password'       => 'mypassword',
@@ -91,7 +91,7 @@ API call parameters can get its values from various sources (in ascending priori
             'MinimumBalance' => 200,
             'AlertEmail'     => "istvan.kadar@softlabs.co.uk"
 
-        );
+        ];
 
 - defalut values set in DocmailAPI class
 

@@ -110,7 +110,7 @@ class Docmailing
 			///////////////////////
 
 			// Setup array to pass into webservice call
-			$arr = array(
+			$arr = [
 				"Username"            => $this->sUsr,
 				"Password"            => $this->sPwd,
 				"CustomerApplication" => $sCallingApplicationID,
@@ -124,7 +124,7 @@ class Docmailing
 				//"DespatchDate"      => $sDespatchDate,   //only include if delayed despatch is required
 				"AddressNameFormat"   => $eAddressNameFormat,
 				"ReturnFormat"        => "Text"
-			);
+			];
 			// other available params listed here:  https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?op=CreateMailing
 			print "<b>About to call CreateMailing</b><br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
@@ -139,7 +139,7 @@ class Docmailing
 			//Add Single Address   - use this to add a single address by setting up array to pass into webservice call
 			///////////////////////
 
-			$arr = array(
+			$arr = [
 				"Username"     => $this->sUsr,
 				"Password"     => $this->sPwd,
 				"MailingGUID"  => $MailingGUID,
@@ -153,7 +153,7 @@ class Docmailing
 				"Address5"     => $sAddress5,
 				"Address6"     => $sPostCode,
 				"ReturnFormat" => "Text"
-			);
+			];
 			print "<br>About to call AddAddress for MailingGUID ".$MailingGUID."<br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
 			$result = $client->call("AddAddress",$arr);
@@ -180,7 +180,7 @@ class Docmailing
 				}
 			}
 
-			$arr = array(
+			$arr = [
 				"Username" => $sUsr,
 				"Password" => $sPwd,
 				"MailingGUID" => $MailingGUID,
@@ -188,7 +188,7 @@ class Docmailing
 				"FileData" => $AddressFileContents,
 				"HasHeaders" => True,
 				"ReturnFormat" => "Text"
-			);
+			];
 			print "<b>About to call AddMailingListFile for MailingGUID</b> ".$MailingGUID."<br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
 			$result = $client->call("AddMailingListFile",$arr);
@@ -213,7 +213,7 @@ class Docmailing
 				}
 			}
 
-			$arr = array(
+			$arr = [
 				"Username"          => $this->sUsr,
 				"Password"          => $this->sPwd,
 				"MailingGUID"       => $MailingGUID,
@@ -224,7 +224,7 @@ class Docmailing
 				"AddressedDocument" => true,
 				"Copies"            => 1,
 				"ReturnFormat"      => "Text"
-			);
+			];
 			// other available params listed here:  https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?op=AddTemplateFile
 			print "<b>About to call AddTemplateFile for MailingGUID</b> ".$MailingGUID."<br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
@@ -236,7 +236,7 @@ class Docmailing
 			///////////////////////
 			// ProcessMailing - Setup array to pass into webservice call
 			///////////////////////
-			$arr = array(
+			$arr = [
 				"Username"                   => $this->sUsr,
 				"Password"                   => $this->sPwd,
 				"MailingGUID"                => $MailingGUID,
@@ -250,7 +250,7 @@ class Docmailing
 				"EmailErrorList"             => 	$EmailOnProcessMailingError,
 				"HttpPostOnSuccess"          => 	$HttpPostOnProcessMailingSuccess,
 				"HttpPostOnError"            =>	$HttpPostOnProcessMailingError
-			);
+			];
 			// there are useful parameters that you may wish to include on this call which enable asynchronous notifications of successes and fails of automated orders to be sent to you via email or HTTP Post:
 			//		EmailSuccessList,EmailErrorList
 			//		HttpPostOnSuccess,HttpPostOnError
@@ -269,7 +269,7 @@ class Docmailing
 				$status = $this->WaitForProcessMailingStatus($client,$this->sUsr,$this->sPwd,$MailingGUID,"Mailing submitted",$callParamArrayDebug, $debug);
 			}
 
-			return array($MailingGUID, $status);
+			return [$MailingGUID, $status];
 
 
 			/*
@@ -278,12 +278,12 @@ class Docmailing
 			///////////////////////
 			// GetStatus - Setup array to pass into webservice call
 			///////////////////////
-			$arr = array(
+			$arr = [
 				"Username" => $sUsr,
 				"Password" => $sPwd,
 				"MailingGUID" => $MailingGUID,
 				"ReturnFormat" => "Text"
-			);
+			];
 			// other available params listed here:  (https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?op=GetStatus) returns the status of a mailing from the mailing guid
 			print "<b>About to call GetStatus</b><br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
@@ -297,12 +297,12 @@ class Docmailing
 			///////////////////////
 			//NOTE:  Status must that the show last "ProcessMailing"	call is complete before a proof can be returned.
 
-			$arr = array(
+			$arr = [
 				"Username" => $sUsr,
 				"Password" => $sPwd,
 				"MailingGUID" => $MailingGUID,
 				"ReturnFormat" => "Text"
-			);
+			];
 			//  other available params listed here:  (GetProofFile (https://www.cfhdocmail.com/TestAPI2/DMWS.asmx?op=GetProofFile) returns the file data of the PDF proof if it has been generated.
 			print "<b>About to call GetProofFile</b><br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
@@ -313,7 +313,7 @@ class Docmailing
 			///////////////////////
 			// ProcessMailing - With "Submit" and "PartialProcess" flags set to APPROVE the mailing - Setup array to pass into webservice call
 			///////////////////////
-			$arr = array(
+			$arr = [
 				"Username" => $sUsr,
 				"Password" => $sPwd,
 				"MailingGUID" => $MailingGUID,
@@ -327,7 +327,7 @@ class Docmailing
 				"EmailErrorList" => 	$EmailOnProcessMailingError,
 				"HttpPostOnSuccess" => 	$HttpPostOnProcessMailingSuccess,
 				"HttpPostOnError" =>	$HttpPostOnProcessMailingError
-			);
+			];
 			// there are useful parameters that you may wish to include on this call which enable asynchronous notifications of successes and fails of automated orders to be sent to you via email or HTTP Post:
 			//		EmailSuccessList,EmailErrorList
 			//		HttpPostOnSuccess,HttpPostOnError
@@ -354,12 +354,12 @@ class Docmailing
 		///////////////////////
 		// GetStatus - Setup array to pass into webservice call
 		///////////////////////
-		$arr = array(
+		$arr = [
 			"Username" => $this->sUsr,
 			"Password" => $this->sPwd,
 			"MailingGUID" => $MailingGUID,
 			"ReturnFormat" => "Text"
-		);
+		];
 
 		//poll GetStatus in a loop until the processing has completed
 		//loop a maximum of 10 times, with a 10 second delay between iterations.
@@ -392,16 +392,16 @@ class Docmailing
 		//
 		if ($Status== "Error in processing") {
 			//get description of error in processing
-			$arr = array(
+			$arr = [
 				"Username" => $this->sUsr,
 				"Password" => $this->sPwd,
 				"MethodName" => "GetProcessingError",
 				"ReturnFormat" => "Text",
-				"Properties" => array(
-										"PropertyName" => "GetProcessingError",
-										"PropertyValue" => $MailingGUID
-									 )
-			);
+				"Properties" => [
+									"PropertyName" => "GetProcessingError",
+									"PropertyValue" => $MailingGUID
+								]
+			];
 			print "<b>About to call ExtendedCall: GetProcessingError</b><br>";
 			if ($callParamArrayDebug) print_r($arr)."<br>";
 			$result = $client->call("ExtendedCall",$arr);

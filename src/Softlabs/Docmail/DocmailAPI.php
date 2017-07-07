@@ -33,7 +33,7 @@ class DocmailAPI {
      *
      * @var array
      */
-    private static $validationRules = array(
+    private static $validationRules = [
         'Username'            => 'required|max:100',
         'Password'            => 'required|max:100',
         'wsdl_test'           => 'required|max:100',
@@ -47,14 +47,14 @@ class DocmailAPI {
         "IsDuplex"            => "",
         "DeliveryType"        => "",
         "CanBeginOnBack"      => ""
-    );
+    ];
 
     /**
      * Validation messages for option items that are always required
      *
      * @var array
      */
-    private static $validationMessages = array(
+    private static $validationMessages = [
         'Username'            => 'Username is required',
         'Password'            => 'Password is required',
         'wsdl_test'           => 'Test WSDL is required',
@@ -68,7 +68,7 @@ class DocmailAPI {
         "IsDuplex"            => "",
         "DeliveryType"        => "",
         "CanBeginOnBack"      => ""
-    );
+    ];
 
     // Single API call methods
 
@@ -80,7 +80,7 @@ class DocmailAPI {
      */
     public static function CreateMailing($options = []) {
 
-        $messages = array(
+        $messages = [
             'MailingName'       => 'MailingName is required',
             'IsMono'            => 'IsMono is required',
             'IsDuplex'          => 'IsDuplex is required',
@@ -88,16 +88,16 @@ class DocmailAPI {
             'AddressNameFormat' => 'AddressNameFormat is required',
             'ProductType'       => 'ProductType is required',
 
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'MailingName'       => 'required',
             'IsMono'            => 'required',
             'IsDuplex'          => 'required',
             'DeliveryType'      => 'required',
             'AddressNameFormat' => 'required',
             'ProductType'       => 'required',
-        );
+        ];
 
         $result = self::apiCall("CreateMailing", $options);
         $mailingGUID = self::GetFld($result["CreateMailingResult"],"MailingGUID");
@@ -113,13 +113,13 @@ class DocmailAPI {
      */
     public static function GetStatus($options) {
 
-        $messages = array(
+        $messages = [
             'MailingGUID' => 'MailingGUID is required',
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'MailingGUID'     => 'required',
-        );
+        ];
 
         if (is_array($options) == false) {
             $options = ["MailingGUID" => $options];
@@ -151,15 +151,15 @@ class DocmailAPI {
      */
     public static function AddAddress($options) {
 
-        $messages = array(
+        $messages = [
             'MailingGUID' => 'MailingGUID is required',
             'Address1' => 'Address1 is required',
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'MailingGUID'     => 'required',
             'Address1' => 'required',
-        );
+        ];
 
         $result = self::apiCall("AddAddress", $options, $rules, $messages);
         $success = self::GetFld($result["AddAddressResult"],"Success");
@@ -174,21 +174,21 @@ class DocmailAPI {
      */
     public static function AddTemplateFile($options) {
 
-        $messages = array(
+        $messages = [
             'MailingGUID' => 'MailingGUID is required',
             "FileData" => 'FileData is required',
             "DocumentType" => 'DocumentType is required',
             "FileName" => 'FileName is required',
             "TemplateName" => 'TemplateName is required',
-        );
+        ];
 
-        $rules = array(
+        $rules = [
             'MailingGUID'     => 'required',
             "FileData" => 'required',
             "DocumentType" => 'required',
             "FileName" => 'required',
             "TemplateName" => 'required',
-        );
+        ];
 
         if (array_key_exists('FilePath', $options)) {
             $hdl = fopen($options['FilePath'], "rb");
@@ -216,24 +216,23 @@ class DocmailAPI {
      */
     public static function ProcessMailing($options = []) {
 
-        $messages = array(
+        $messages = [
             'MailingName'       => 'MailingName is required',
             'IsMono'            => 'IsMono is required',
             'IsDuplex'          => 'IsDuplex is required',
             'DeliveryType'      => 'DeliveryType is required',
             'AddressNameFormat' => 'AddressNameFormat is required',
             'ProductType'       => 'ProductType is required',
+        ];
 
-        );
-
-        $rules = array(
+        $rules = [
             'MailingName'       => 'required',
             'IsMono'            => 'required',
             'IsDuplex'          => 'required',
             'DeliveryType'      => 'required',
             'AddressNameFormat' => 'required',
             'ProductType'       => 'required',
-        );
+        ];
 
         $result = self::apiCall("ProcessMailing", $options);
         $success = self::GetFld($result["ProcessMailingResult"],"Success");
