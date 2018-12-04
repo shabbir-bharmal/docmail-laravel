@@ -2,8 +2,8 @@
 
 use Illuminate\Support\ServiceProvider;
 
-class DocmailServiceProvider extends ServiceProvider {
-
+class DocmailServiceProvider extends ServiceProvider
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -18,14 +18,9 @@ class DocmailServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
-
-        $this->app['docmail'] = $this->app->share(function($app)
-        {
-            $docmail = new Docmail();
-            return $docmail;
+		$this->app->singleton(Docmail::class, function ($app) {
+            return new Docmail();
         });
-
 	}
 
 	/**
@@ -45,7 +40,6 @@ class DocmailServiceProvider extends ServiceProvider {
      */
     public function boot()
     {
-        $this->package('Softlabs/Docmail');
+        //
     }
-
 }
